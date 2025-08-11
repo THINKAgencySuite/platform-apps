@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook-lb
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/THINKAgencySuite/platform-apps.git
+    targetRevision: main
+    path: manifests/guestbook-lb
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: guestbook
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
